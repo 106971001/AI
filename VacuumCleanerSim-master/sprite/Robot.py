@@ -20,16 +20,25 @@ class RobotState(Enum):
 
 
 class Robot(pygame.sprite.Sprite):
-    def __init__(self, x, y, radius, color=BLACK):
+    def __init__(self, x, y, radius, color=BLACK, robot_image_path=None):
         super().__init__()
-        self.image = pygame.Surface([radius * 2, radius * 2], pygame.SRCALPHA)
+
+        # self picture
+        if robot_image_path is None:
+            self.image = pygame.Surface([radius * 2, radius * 2], pygame.SRCALPHA)
+        else:
+            self.image = pygame.image.load(robot_image_path).convert()
+
         self._org_image = self.image
         pygame.draw.circle(self.image, color, (radius, radius), radius)
         pygame.draw.polygon(self.image, GREEN, [(0, radius), (2 * radius, radius), (radius, 0)])
 
         self.state = RobotState.STOP
+
         self.rect = self.image.get_rect()
         self._org_rect = self.rect
+
+        # init position
         self.rect.x = x
         self.rect.y = y
         self.x = x
@@ -37,16 +46,26 @@ class Robot(pygame.sprite.Sprite):
         self.angle = 0
         self.angle_delta = 0  # angle to rotate
         self.walk_delta = 0  # distance to walk
+
         self.radius = radius
         self.busy = False
         self.direction = get_direction(self.angle)
 
+        # these two properties are used for slower walk and/or slower rotating while walking
         self.wss = conf["robot"]["wss"]
         self.rss = conf["robot"]["rss"]
-
-        # these two properties are used for slower walk and/or slower rotating while walking
         self.custom_wss = self.wss
         self.custom_rss = self.rss
+
+        # battery function for term_project
+        self.battery_volume = 1000
+        self.battery_used_suck = 2
+        self.battery_used_walk = 2
+        self.battery_used_rot = 2
+        self.battery_used_sensors = 2
+
+        # Path memory function
+        self.walked = []
 
     def get_configuration(self):
         return self.rect.x, self.rect.y, self.angle
