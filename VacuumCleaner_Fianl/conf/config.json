@@ -1,0 +1,16 @@
+{
+  "logging": {
+    "verbose": true
+  },
+  "simulation": {
+    "fps": 500
+  },
+  "environment": {
+    "tile_size": 10,
+    "width": 1200,
+    "height": 600,
+    "defaults": {
+      "0": { "obstacles": [], "robot": [] }
+    }
+  }
+}

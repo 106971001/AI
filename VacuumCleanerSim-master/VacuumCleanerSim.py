@@ -8,7 +8,6 @@ from pygame.locals import *
 from RoomEnvironment import RoomEnvironment
 from Visualizer import Visualizer
 
-
 from algorithm.RandomBounceWalkAlgorithm import RandomBounceWalkAlgorithm
 from algorithm.SWalkAlgorithm import SWalkAlgorithm
 from algorithm.SpiralWalkAlgorithm import SpiralWalkAlgorithm
