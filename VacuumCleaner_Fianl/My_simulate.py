@@ -8,6 +8,9 @@ from pygame.locals import *
 from utils.confUtils import CONF as conf
 from utils.confUtils import LOG as log
 
+# Set RoomEnvironment
+from RoomEnvironment import RoomEnvironment
+
 
 # Make a Simulator
 class Simulator:
