@@ -58,6 +58,7 @@ class RoomEnvironment:
         self.group_walls.add(wall_left)
         self.group_walls.add(wall_right)
 
+
     def initialize_customized_obstacles(self, obstacles):
         pass
 

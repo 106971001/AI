@@ -184,6 +184,7 @@ class Visualizer:
 
     def draw(self):
         dirt = conf["simulation"].get("dirt", 35)
+
         base_color = [255 - dirt, 255 - dirt, 255 - dirt]
         self.screen.fill(base_color)
 

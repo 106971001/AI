@@ -16,5 +16,9 @@
   "robot": {
     "walk_speed" : 2,
     "rotate_speed": 5
+  },
+  "debug": {
+    "draw_fps": true,
+    "draw_time": true
   }
 }
