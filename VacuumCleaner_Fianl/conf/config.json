@@ -10,7 +10,11 @@
     "width": 1200,
     "height": 600,
     "defaults": {
-      "0": { "obstacles": [], "robot": [] }
+      "0": { "obstacles": [], "robot": [700, 520, 30] }
     }
+  },
+  "robot": {
+    "walk_speed" : 2,
+    "rotate_speed": 5
   }
 }

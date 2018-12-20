@@ -1,9 +1,9 @@
 import pygame
-from utils.colorUtils import ColorDictionary as colors
+from utils.colorUtils import ColorDictionary as Colors
 
 
 class Obstacle(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, color=colors.BLACK):
+    def __init__(self, x, y, width, height, color=Colors.BLACK):
         super().__init__()
         self.x = x
         self.y = y
