@@ -3,7 +3,7 @@ from abc import ABC
 from sprite.Robot import RobotState
 
 
-class RandomAlgorithm(ABC):
+class RandomAlgorithm:
     def __init__(self):
         self.started = False
 

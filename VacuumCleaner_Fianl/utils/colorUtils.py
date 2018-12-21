@@ -1,6 +1,7 @@
 from enum import Enum
 
-class ColorDictionary(Enum):
+
+class ColorDictionary:
     WHITE = (255, 255, 255)
     LIGHT_GREY = (220, 220, 220)
     DARK_GREY = (100, 100, 100)
@@ -9,3 +10,4 @@ class ColorDictionary(Enum):
     RED = (255, 0, 0)
     GREEN = (0, 255, 0)
     BLUE = (0, 0, 255)
+    YELLOW = (255, 255, 0)

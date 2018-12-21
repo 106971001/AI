@@ -45,7 +45,7 @@ class Robot(pygame.sprite.Sprite):
 
         self.radius = radius
         self.busy = False  # ?
-        self.direction = self._get_direction(self.angle)
+        self.direction = self.get_direction(self.angle)
 
         # set walk speed and rotating speed
         self.walk_speed = Conf["robot"]["walk_speed"]
@@ -55,20 +55,45 @@ class Robot(pygame.sprite.Sprite):
 
         # battery function
         self.battery_volume = 1000
+        self.battery_now = 500
         self.battery_used_suck = 1
         self.battery_used_walk = 2
         self.battery_used_rot = 3
         self.battery_used_sensors = 4
 
+        # dirt bag function
+        self.dirt_bag_volume = 1000
+        self.dirt_bag_now = 50
+
         # path memory function
         self.walked = []
 
-    def update(self):
-        pass
+    def update(self, env=None):
+        """
+        update by algorithm and choose action below
+            1. go one step
+            2. rotate
 
+        """
+        if not env:
+            pass
 
+        if self.state == RobotState.NO_POWER:
+            pass
 
-    def _get_direction(self, angle):
+        if self.state == RobotState.FULL_DIRT:
+            pass
+
+        # algorithm = env.algorithm
+        # env_dected = env.get_sensors_data(self.x, self.y, self.direction)
+        self.rect.x = self.rect.x + 10
+        if self.rect.x > env.width:
+            self.rect.x = 0
+        self.rect.y = self.rect.y + 10
+        if self.rect.y > env.height:
+            self.rect.y = 0
+
+    def get_direction(self, angle):
         """
         output direction vector in robot unit
         :param angle:

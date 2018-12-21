@@ -14,17 +14,17 @@ class TileState(Enum):
 
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int, y: int, tile_size: int):
         super().__init__()
         self.x = x
         self.y = y
-        self.width = conf["environment"]["tile_size"]
-        self.height = conf["environment"]["tile_size"]
+        self.width = tile_size
+        self.height = tile_size
         self.color = colors.LIGHT_GREY
         self.state = TileState.UNCOVERED
 
         self.image = pygame.Surface([self.width, self.height])
-        self.image.fill(self.color)
+        self.image.fill((220, 220, 220))
 
         self.rect = self.image.get_rect()
         self.rect.x = self.x

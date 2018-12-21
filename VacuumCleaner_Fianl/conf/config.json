@@ -19,6 +19,9 @@
   },
   "debug": {
     "draw_fps": true,
-    "draw_time": true
+    "draw_time": true,
+    "draw_coverage": true,
+    "draw_battery": true,
+    "draw_dirt_bag": true
   }
 }
