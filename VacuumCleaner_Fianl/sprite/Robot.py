@@ -5,6 +5,9 @@ from enum import Enum
 from utils.confUtils import CONF as Conf
 from utils.colorUtils import ColorDictionary as Colors
 
+from sprite.Sensor import Sensor
+from sprite.Sensor import SensorType
+
 
 class RobotState(Enum):
     WALK = 1
@@ -25,6 +28,7 @@ class Robot(pygame.sprite.Sprite):
             self.image = pygame.Surface([radius*2, radius*2], pygame.SRCALPHA)
             pygame.draw.circle(self.image, Colors.BLACK, (radius, radius), radius)
             pygame.draw.polygon(self.image, Colors.GREEN, [(0, radius), (2*radius, radius), (radius, 0)])
+            pygame.draw.circle(self.image, Colors.BLUE, (radius, radius), 1, 1)
         else:
             self.image = pygame.image.load(robot_image_path).covert()
         self._org_image = self.image
@@ -35,10 +39,9 @@ class Robot(pygame.sprite.Sprite):
         self._org_rect = self.rect
 
         # init position
-        self.rect.x = x
-        self.rect.y = y
-        self.x = x
-        self.y = y
+        self.rect.x = self.x = x
+        self.rect.y = self.y = y
+
         self.angle = 0
         self.angle_delta = 0  # angle to rotate
         self.walk_delta = 0  # distance to walk ?(Maybe don't need)
@@ -48,10 +51,8 @@ class Robot(pygame.sprite.Sprite):
         self.direction = self.get_direction(self.angle)
 
         # set walk speed and rotating speed
-        self.walk_speed = Conf["robot"]["walk_speed"]
-        self.rotate_speed = Conf["robot"]["rotate_speed"]
-        self.custom_walk_speed = self.walk_speed
-        self.custom_rotate_speed = self.rotate_speed
+        self.custom_walk_speed = Conf["robot"]["walk_speed"]
+        self.custom_rotate_speed = Conf["robot"]["rotate_speed"]
 
         # battery function
         self.battery_volume = 1000
@@ -68,12 +69,17 @@ class Robot(pygame.sprite.Sprite):
         # path memory function
         self.walked = []
 
+        # sensors
+        self.sensors = pygame.sprite.Group()
+        self.sensors.add(Sensor(self, type=SensorType.Laser))
+
+
     def update(self, env=None):
         """
-        update by algorithm and choose action below
-            1. go one step
+        1. check state and response
+        2. update by algorithm and choose action below
+            1. walk
             2. rotate
-
         """
         if not env:
             pass
@@ -84,14 +90,18 @@ class Robot(pygame.sprite.Sprite):
         if self.state == RobotState.FULL_DIRT:
             pass
 
-        # algorithm = env.algorithm
-        # env_dected = env.get_sensors_data(self.x, self.y, self.direction)
-        self.rect.x = self.rect.x + 10
+        algorithm = env.algorithm
+
+        env_dected = self.get_sensors_data(env)
+        action = algorithm.update(env_dected)
+
+        self.x += 1
+        self.rect.x += 1
         if self.rect.x > env.width:
             self.rect.x = 0
-        self.rect.y = self.rect.y + 10
-        if self.rect.y > env.height:
-            self.rect.y = 0
+
+        self.sensors.update(self)
+
 
     def get_direction(self, angle):
         """
@@ -100,6 +110,12 @@ class Robot(pygame.sprite.Sprite):
         :return: (dx, dy)
         """
         rad_angle = np.deg2rad((angle+90) % 360)
-        return np.round(np.cos(rad_angle), 5),  np.round(np.sin(rad_angle), 5)
+        return np.round(np.cos(rad_angle), 5),  -np.round(np.sin(rad_angle), 5)
 
+    def get_sensors_data(self, env):
+        result = []
+        for sensor in self.sensors:
+            sensor.get_data(env)
 
+            result.append((sensor.type, sensor.value))
+        return result

@@ -7,10 +7,11 @@ class RandomAlgorithm:
     def __init__(self):
         self.started = False
 
-    def update(self, obstacles, robot):
-        if not self.started:
-            self.start()
-            robot.state = RobotState.WALK
+    def update(self, obstacles=None):
+        # if not self.started:
+        #    self.start()
+        #    robot.state = RobotState.WALK
+        return True
 
     def robot_colided(self, obstacles, robot):
         for obstacle in obstacles:

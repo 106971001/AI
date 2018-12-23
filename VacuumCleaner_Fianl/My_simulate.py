@@ -9,8 +9,9 @@ from utils.colorUtils import ColorDictionary as Colors
 from sprite.Tile import Tile
 from sprite.Obstacle import Obstacle
 from sprite.Robot import Robot
+from sprite.Sensor import SensorType
 
-from algorithms import RandomAlgorithm
+from algorithms.RandomAlgorithm import RandomAlgorithm
 
 
 class Simulator:
@@ -35,6 +36,7 @@ class Simulator:
         self.time = strftime("%Y%m%d%H%M%S", gmtime())
         self.algorithm = RandomAlgorithm
         self.show_coverage_path = True  # for display
+        self.start = False
 
         # env config
         self.width, self.height, self.tile_size, self.obstacles, self.robot = self.get_env_set()
@@ -112,6 +114,12 @@ class Simulator:
     # End -------------------------------------------------
 
     # For drawing on the screen ---------------------------
+    def draw_grids(self):
+        for x in range(0, self.width, self.tile_size):
+            pygame.draw.line(self.screen, Colors.LIGHT_GREY_2, (x, 0), (x, x + self.height), 1)
+        for y in range(0, self.height, self.tile_size):
+            pygame.draw.line(self.screen, Colors.LIGHT_GREY_2, (0, y), (y + self.width, y), 1)
+
     def draw_fps(self):
         if Conf["debug"]["draw_fps"]:
             x = 20
@@ -187,13 +195,34 @@ class Simulator:
                 col = Colors.RED
             pygame.draw.rect(self.screen, col, fill_rect)
             pygame.draw.rect(self.screen, Colors.WHITE, outline_rect, 2)
+
+    def draw_sensors(self):
+        sensors = self.robot.sensors
+        for sensor in sensors:
+            if sensor.value and sensor.type == SensorType.Laser:
+                start_pos = (sensor.x, sensor.y)
+                end_pos = (sensor.value[1][0], sensor.value[1][1])
+                pygame.draw.line(self.screen, Colors.RED, start_pos, end_pos, 3)
     # End --------------------------------------------------
 
-    def get_sensors_data(self, robot_x, robot_y, robot_direction):
+    def get_sensor_laser_data(self, sensor):
         """
-        response to sensors of distance and  material of floor
+        response to sensors of distance and collision position
         :return: [] of result
         """
+        direction = sensor.direction
+        current_pos = pygame.math.Vector2(sensor.x, sensor.y)
+
+        for _ in range(max(self.width, self.height)):
+            current_pos += direction
+            for sprite in self.group_walls:
+                # If the current_pos collides with an
+                # obstacle, return it.
+                if sprite.rect.collidepoint(current_pos):
+                    return 1, current_pos
+
+    def get_sensor_material_data(self, sensor):
+        return True
 
     def pygame_events(self):
         # catch all events here
@@ -203,6 +232,9 @@ class Simulator:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
                     self.quit()
+                if event.key == pygame.K_s:
+                    self.start = not self.start
+
 
     @staticmethod
     def quit():
@@ -216,20 +248,24 @@ class Simulator:
             self.draw()
 
     def update(self):
-        self.robot.update(self)
-        self.group_walls.update()
-        self.group_tiles.update()
+        if self.start:
+            self.robot.update(self)
+            self.group_walls.update()
+            self.group_tiles.update()
 
     def draw(self):
         self.group_tiles.draw(self.screen)
         self.group_walls.draw(self.screen)
-        self.group_robots.draw(self.screen)
 
+        self.draw_grids()
         self.draw_fps()
         self.draw_time()
         self.draw_coverage()
         self.draw_battery()
         self.draw_dirt_bag()
+
+        self.draw_sensors()
+        self.group_robots.draw(self.screen)
 
         pygame.display.flip()
 
