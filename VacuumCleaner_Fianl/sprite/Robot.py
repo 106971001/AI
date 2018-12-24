@@ -1,12 +1,14 @@
 import pygame
 import numpy as np
+import math
 from enum import Enum
 
 from utils.confUtils import CONF as Conf
 from utils.colorUtils import ColorDictionary as Colors
 
-from sprite.Sensor import Sensor
-from sprite.Sensor import SensorType
+from sprite.Sensor import Sensor, SensorType
+
+from algorithms.RandomAlgorithm import RandomAlgorithmAction
 
 
 class RobotState(Enum):
@@ -20,7 +22,7 @@ class RobotState(Enum):
 
 
 class Robot(pygame.sprite.Sprite):
-    def __init__(self, x, y, radius, robot_image_path=None):
+    def __init__(self, x, y, radius, robot_image_path=None, algorithm=None):
         super().__init__()
 
         # self picture
@@ -33,7 +35,7 @@ class Robot(pygame.sprite.Sprite):
             self.image = pygame.image.load(robot_image_path).covert()
         self._org_image = self.image
 
-        self.state = RobotState.STOP
+        self.state = RobotState.WALK
 
         self.rect = self.image.get_rect()
         self._org_rect = self.rect
@@ -41,12 +43,13 @@ class Robot(pygame.sprite.Sprite):
         # init position
         self.rect.x = self.x = x
         self.rect.y = self.y = y
-
         self.angle = 0
         self.angle_delta = 0  # angle to rotate
         self.walk_delta = 0  # distance to walk ?(Maybe don't need)
 
+        # self config
         self.radius = radius
+        self.algorithm = algorithm
         self.busy = False  # ?
         self.direction = self.get_direction(self.angle)
 
@@ -70,9 +73,10 @@ class Robot(pygame.sprite.Sprite):
         self.walked = []
 
         # sensors
-        self.sensors = pygame.sprite.Group()
-        self.sensors.add(Sensor(self, type=SensorType.Laser))
-
+        self.group_sensors = pygame.sprite.Group()
+        self.group_sensors.add(Sensor(self, self.rect.midtop, sensor_type=SensorType.Laser, name="head_laser"))
+        self.group_sensors.add(Sensor(self, self.rect.midleft, sensor_type=SensorType.Laser, name="left_laser"))
+        self.group_sensors.add(Sensor(self, self.rect.midright, sensor_type=SensorType.Laser, name="right_laser"))
 
     def update(self, env=None):
         """
@@ -90,18 +94,40 @@ class Robot(pygame.sprite.Sprite):
         if self.state == RobotState.FULL_DIRT:
             pass
 
-        algorithm = env.algorithm
+        if self.state == RobotState.ROTATE:
+            if math.fabs(self.angle_delta) < self.custom_rotate_speed:
+                self.angle = (self.angle - self.angle_delta) % 360
+                self.angle_delta = 0
 
-        env_dected = self.get_sensors_data(env)
-        action = algorithm.update(env_dected)
+                self.direction = self.get_direction(self.angle)
+                self.state = RobotState.WALK
 
-        self.x += 1
-        self.rect.x += 1
-        if self.rect.x > env.width:
-            self.rect.x = 0
+            if self.angle_delta > 0:
+                self.angle = (self.angle + self.custom_rotate_speed) % 360
+                self.angle_delta = self.angle_delta - self.custom_rotate_speed
 
-        self.sensors.update(self)
+            if self.angle_delta < 0:
+                self.angle = (self.angle - self.custom_rotate_speed) % 360
+                self.angle_delta = self.angle_delta + self.custom_rotate_speed
 
+            self.direction = self.get_direction(self.angle)
+            self.image = self.rot_center(self._org_image, self.angle % 360 )
+
+        if self.state == RobotState.WALK:
+            self.get_sensors_data(env)
+            action = self.algorithm.update(self.group_sensors)  # (action_type, action_value)
+            if self.algorithm.name == "RandomAlgorithm":
+                if action[0] == RandomAlgorithmAction.WALK:
+                    self.x += self.custom_walk_speed * self.direction[0]
+                    self.rect.x = self.x
+
+                    self.y += self.custom_walk_speed * self.direction[1]
+                    self.rect.y = self.y
+                if action[0] == RandomAlgorithmAction.ROTATE:
+                    self.state = RobotState.ROTATE
+                    self.angle_delta = action[1]
+
+        self.group_sensors.update(self)
 
     def get_direction(self, angle):
         """
@@ -113,9 +139,16 @@ class Robot(pygame.sprite.Sprite):
         return np.round(np.cos(rad_angle), 5),  -np.round(np.sin(rad_angle), 5)
 
     def get_sensors_data(self, env):
-        result = []
-        for sensor in self.sensors:
+        for sensor in self.group_sensors:
             sensor.get_data(env)
 
-            result.append((sensor.type, sensor.value))
-        return result
+    def rot_center(self, image, angle):
+        """rotate an image while keeping its center and size"""
+        orig_rect = image.get_rect()
+        rot_image = pygame.transform.rotate(image, angle)
+        rot_rect = orig_rect.copy()
+        rot_rect.center = rot_image.get_rect().center
+        rot_image = rot_image.subsurface(rot_rect).copy()
+        return rot_image
+
+

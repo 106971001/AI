@@ -13,6 +13,11 @@ class TileState(Enum):
     COVERED_BY_OBSTACLE = 3
 
 
+class TileType(Enum):
+    Normal = 1
+    Enforce = 2
+
+
 class Tile(pygame.sprite.Sprite):
     def __init__(self, x: int, y: int, tile_size: int):
         super().__init__()
@@ -22,6 +27,7 @@ class Tile(pygame.sprite.Sprite):
         self.height = tile_size
         self.color = colors.LIGHT_GREY
         self.state = TileState.UNCOVERED
+        self.floor_type = TileType.Normal
 
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill((220, 220, 220))
@@ -53,6 +59,8 @@ class Tile(pygame.sprite.Sprite):
         elif idx == 3:
             return self.rect.x + self.rect.y
 
+    def set_floor_type(self, floor_type: TileType):
+        self.floor_type = floor_type
 
     def update(self, *args):
         pass

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="2018.12.22" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="205">
+ <tileset firstgid="1" name="向下" tilewidth="64" tileheight="64" spacing="10" tilecount="540" columns="27">
+  <image source="../img/向下.png" width="1988" height="1470"/>
+ </tileset>
+ <tileset firstgid="541" name="sink (2)" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/sink (2).png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="542" name="spritesheetR" tilewidth="64" tileheight="64" spacing="10" tilecount="540" columns="20">
+  <image source="../img/spritesheetR.png" width="1470" height="1988"/>
+ </tileset>
+ <tileset firstgid="1082" name="sink_left" tilewidth="64" tileheight="64" spacing="10" tilecount="1" columns="1">
+  <image source="../img/sink_left.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1083" name="piano" tilewidth="64" tileheight="64" spacing="10" tilecount="9" columns="3">
+  <image source="../img/piano.png" width="218" height="218"/>
+ </tileset>
+ <tileset firstgid="1092" name="toilet" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+  <image source="../img/toilet.png" width="70" height="128"/>
+ </tileset>
+ <tileset firstgid="1094" name="toiletL" tilewidth="64" tileheight="64" tilecount="2" columns="2">
+  <image source="../img/toiletL.png" width="128" height="70"/>
+ </tileset>
+ <tileset firstgid="1096" name="WM" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/WM.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1097" name="wardrobe" tilewidth="64" tileheight="64" tilecount="3" columns="3">
+  <image source="../img/wardrobe.png" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="1100" name="wardrobeR" tilewidth="64" tileheight="64" tilecount="3" columns="1">
+  <image source="../img/wardrobeR.png" width="64" height="192"/>
+ </tileset>
+ <tileset firstgid="1103" name="dining1" tilewidth="64" tileheight="64" tilecount="9" columns="3">
+  <image source="../img/dining1.png" width="192" height="192"/>
+ </tileset>
+ <tileset firstgid="1112" name="table" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+  <image source="../img/table.png" width="120" height="180"/>
+ </tileset>
+ <tileset firstgid="1114" name="chair" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/chair.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1115" name="chairL" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/chairL.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1116" name="train (1)" tilewidth="64" tileheight="64" tilecount="4" columns="2">
+  <image source="../img/train (1).png" width="128" height="148"/>
+ </tileset>
+ <tileset firstgid="1120" name="lamp1" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+  <image source="../img/lamp1.png" width="80" height="128"/>
+ </tileset>
+ <tileset firstgid="1122" name="shower2" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/shower2.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1123" name="showeL" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/showeL.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1124" name="charge" tilewidth="64" tileheight="64" tilecount="1" columns="1">
+  <image source="../img/charge.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="1125" name="spritesheet_tilesO" tilewidth="64" tileheight="64" spacing="10" tilecount="540" columns="27">
+  <image source="../img/spritesheet_tiles.png" width="1988" height="1470"/>
+ </tileset>
+ <tileset firstgid="1665" name="spritesheet_tilesL" tilewidth="64" tileheight="64" spacing="10" tilecount="540" columns="20">
+  <image source="../img/spritesheet_tilesL.png" width="1470" height="1988"/>
+ </tileset>
+ <layer id="1" name="Ground" width="30" height="30">
+  <data encoding="csv">
+1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,862,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,862,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,862,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,1210,
+1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,1210,1210,1210,
+1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,862,862,862,1129,1129,1249,1250,1210,1210,1210,1210,
+1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1276,1277,1129,1129,1129,1210,
+1210,1210,1210,1210,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1210,1210,1210,1210,1129,1056,1056,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1210,1210,1210,1210,1129,1056,1056,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1210,1210,1210,1210,1129,1129,1129,1129,1129,802,802,802,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,802,802,802,802,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,802,802,802,802,1129,802,802,802,802,802,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,802,802,802,802,1129,802,802,802,802,802,1129,1129,1129,1129,1129,1129,1129,2029,2031,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,802,802,802,802,1129,802,802,802,802,802,1129,1129,1129,1129,1129,1129,1129,2049,2051,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,802,802,802,802,1129,802,802,802,802,802,1129,1129,1129,1129,1129,1129,1129,2069,2071,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,802,802,802,802,1129,802,802,802,802,802,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1210,
+1144,1144,1144,1144,1144,1144,1144,1129,1129,802,802,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,
+1144,1144,1144,1144,1144,1144,1144,1144,1129,1129,1129,1129,1144,1144,1144,1129,1056,1056,1056,1056,1056,1056,1129,1056,1056,1056,1056,1056,1056,1129,
+1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1129,1056,1056,1056,1056,1056,1056,1129,1056,1056,1056,1056,1056,1056,1129,
+1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1144,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129,1129
+</data>
+ </layer>
+ <layer id="2" name="wall" width="30" height="30">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1404,1406,1406,1406,1406,1406,1406,1406,1406,1407,1406,1406,1406,1405,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1433,639,0,0,0,0,0,0,0,1433,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1433,659,0,0,0,0,0,1120,0,1433,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1433,679,0,0,0,0,0,1121,0,852,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1431,1406,1405,0,0,0,0,0,0,773,0,793,853,812,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,1433,1604,1605,1605,1606,0,0,0,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,1404,1406,1406,1408,1406,1406,1406,1406,1409,0,1437,1406,1406,1406,1465,1406,1406,1406,1407,1406,1406,1409,0,0,0,0,
+0,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,0,0,1433,0,0,0,1433,0,0,0,0,0,0,0,
+0,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,0,0,1433,0,0,1082,1433,0,0,0,1404,1406,1405,0,
+0,0,0,0,1433,0,0,0,0,0,0,0,0,0,0,0,0,0,1433,0,0,0,1434,1409,1650,1437,1432,0,1433,0,
+0,0,0,0,1433,1038,1038,0,0,0,0,0,0,0,0,0,0,0,1410,1650,1437,1406,1432,0,0,0,0,0,1433,0,
+0,0,0,0,1433,0,0,1404,1406,1406,1406,1406,1409,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1433,0,
+0,0,0,0,1431,1406,1406,1435,639,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1433,0,
+0,0,0,0,0,0,0,1433,659,0,0,0,1436,0,1437,1406,1406,1406,1405,0,0,550,1436,2127,0,0,0,0,1433,0,
+0,0,0,0,0,0,0,1433,679,0,0,0,1433,0,0,0,0,0,1433,2195,0,593,1433,2067,0,0,0,0,1433,0,
+0,0,0,0,0,0,0,1433,0,0,0,0,1433,0,0,0,0,0,1433,2195,0,573,1433,2087,0,0,0,0,1433,0,
+0,0,0,0,0,0,0,1433,0,0,0,0,1433,599,0,0,0,0,1433,2195,0,613,1433,2087,1124,0,0,0,1433,0,
+0,0,0,0,0,0,0,1433,0,0,0,0,1433,599,0,0,0,0,1433,2195,0,553,1433,2107,0,0,0,0,1433,0,
+0,0,0,0,0,0,0,1433,0,0,0,0,1433,1604,1605,1605,1606,0,1433,2195,0,552,1433,2127,0,0,0,0,1433,0,
+0,0,0,0,0,0,0,1431,1405,1604,1606,1404,1408,1406,1406,1407,1406,1406,1432,1906,1906,1906,1433,1906,1906,1906,1906,1906,1431,1405,
+0,0,0,0,0,0,0,0,1431,1406,1406,1432,0,0,0,1433,0,0,0,0,0,0,1433,0,0,0,0,0,0,1433,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1433,0,0,0,0,0,0,1433,0,0,0,0,0,0,1433,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1431,1406,1406,1406,1406,1406,1406,1408,1406,1406,1406,1406,1406,1406,1432
+</data>
+ </layer>
+ <layer id="3" name="items" width="30" height="30">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,383,434,435,383,1576,1576,0,1092,541,1122,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,1115,0,461,462,0,0,0,0,1093,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,488,489,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,1656,1657,0,0,0,0,1097,1098,1099,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1948,0,0,0,1083,1084,1085,0,0,0,1103,1104,1105,0,0,0,1123,0,600,0,0,0,0,0,0,
+0,0,0,0,0,1968,0,0,0,1086,1087,1088,0,0,0,1106,1107,1108,0,0,0,0,0,600,0,0,0,0,0,0,
+0,0,0,0,0,1988,0,0,0,1089,1090,1091,0,0,0,1109,1110,1111,0,0,1094,1095,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1116,1117,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1118,1119,0,0,
+0,0,0,0,0,0,0,0,0,1115,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,1100,0,0,0,1097,1098,1099,0,0,0,571,0,0,0,0,36,0,0,0,
+0,0,0,0,0,0,0,0,2119,0,0,1101,0,0,0,0,0,626,0,0,0,0,0,2025,0,0,1112,760,0,0,
+0,0,0,0,0,0,0,0,2161,2162,2163,1101,0,0,0,623,624,625,0,0,0,591,0,2045,0,0,1113,780,0,0,
+0,0,0,0,0,0,0,0,2181,2182,2183,1101,0,0,1114,643,644,645,0,0,0,0,0,0,0,0,1113,800,0,0,
+0,0,0,0,0,0,0,0,2119,0,0,1102,0,0,0,0,0,626,0,0,0,0,0,0,0,0,1629,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1096,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="4" name="obstacle" visible="0">
+  <object id="1" name="wall" x="322" y="394" width="886" height="48"/>
+  <object id="2" name="wall" x="260" y="844" width="564" height="48"/>
+  <object id="3" name="wall" x="902" y="844" width="756" height="48"/>
+  <object id="4" name="wall" x="322" y="650" width="176" height="48"/>
+  <object id="5" name="wall" x="1032" y="648" width="176" height="48"/>
+  <object id="6" name="wall" x="454" y="1154" width="372" height="48"/>
+  <object id="7" name="wall" x="896" y="1284" width="310" height="48"/>
+  <object id="8" name="wall" x="260" y="1224" width="244" height="48"/>
+  <object id="9" name="wall" x="518" y="1734" width="232" height="48"/>
+  <object id="10" name="wall" x="716" y="1672" width="488" height="48"/>
+  <object id="11" name="wall" x="966" y="1864" width="946" height="48"/>
+  <object id="12" name="wall" x="1284" y="1098" width="184" height="48"/>
+  <object id="13" name="wall" x="1604" y="1032" width="114" height="48"/>
+  <object id="14" name="wall" x="1418" y="1034" width="186" height="48"/>
+  <object id="15" name="wall" x="1668" y="970" width="178" height="48"/>
+  <object id="16" name="wall" x="1800" y="1670" width="114" height="48"/>
+  <object id="17" name="wall" x="464" y="1674" width="112" height="48"/>
+  <object id="18" name="wall" x="1000" y="1352" width="96" height="48"/>
+  <object id="19" name="wall" x="966" y="1478" width="180" height="112"/>
+  <object id="20" name="wall" x="842" y="1470" width="42" height="190"/>
+  <object id="21" name="wall" x="898" y="1606" width="122" height="48"/>
+  <object id="22" name="wall" x="1088" y="1418" width="50" height="48"/>
+  <object id="23" name="wall" x="1092" y="1614" width="50" height="48"/>
+  <object id="24" name="wall" x="908" y="1552" width="40" height="36"/>
+  <object id="25" name="wall" x="598" y="1290" width="40" height="36"/>
+  <object id="26" name="wall" x="516" y="1478" width="180" height="112"/>
+  <object id="27" name="wall" x="524" y="1608" width="50" height="48"/>
+  <object id="28" name="wall" x="520" y="1222" width="50" height="250"/>
+  <object id="29" name="wall" x="458" y="1272" width="50" height="392"/>
+  <object id="30" name="wall" x="770" y="1286" width="50" height="392"/>
+  <object id="31" name="wall" x="1158" y="1338" width="50" height="324"/>
+  <object id="32" name="wall" x="1222" y="1414" width="18" height="250"/>
+  <object id="33" name="wall" x="1410" y="1290" width="112" height="368"/>
+  <object id="34" name="wall" x="1348" y="1354" width="50" height="306"/>
+  <object id="35" name="wall" x="1416" y="1684" width="50" height="178"/>
+  <object id="36" name="wall" x="1800" y="1034" width="50" height="642"/>
+  <object id="37" name="wall" x="1158" y="440" width="50" height="706"/>
+  <object id="38" name="wall" x="1414" y="894" width="50" height="138"/>
+  <object id="39" name="wall" x="256" y="886" width="50" height="330"/>
+  <object id="40" name="wall" x="322" y="896" width="50" height="188"/>
+  <object id="41" name="wall" x="452" y="1118" width="50" height="102"/>
+  <object id="42" name="wall" x="316" y="1106" width="134" height="16"/>
+  <object id="43" name="wall" x="326" y="448" width="122" height="196"/>
+  <object id="44" name="wall" x="902" y="440" width="50" height="258"/>
+  <object id="45" name="wall" x="462" y="524" width="40" height="36"/>
+  <object id="46" name="wall" x="518" y="462" width="50" height="48"/>
+  <object id="47" name="wall" x="706" y="458" width="182" height="48"/>
+  <object id="48" name="wall" x="578" y="452" width="116" height="176"/>
+  <object id="49" name="wall" x="792" y="622" width="40" height="18"/>
+  <object id="50" name="wall" x="988" y="772" width="108" height="48"/>
+  <object id="51" name="wall" x="506" y="778" width="258" height="48"/>
+  <object id="52" name="wall" x="968" y="958" width="156" height="78"/>
+  <object id="53" name="wall" x="1216" y="1110" width="62" height="14"/>
+  <object id="54" name="wall" x="962" y="664" width="62" height="14"/>
+  <object id="55" name="wall" x="618" y="1056" width="24" height="28"/>
+  <object id="56" name="wall" x="620" y="906" width="24" height="28"/>
+  <object id="57" name="wall" x="738" y="908" width="24" height="28"/>
+  <object id="58" name="wall" x="682" y="998" width="24" height="28"/>
+  <object id="59" name="wall" x="1774" y="1202" width="10" height="14"/>
+  <object id="60" name="wall" x="1772" y="1234" width="12" height="15"/>
+  <object id="61" name="wall" x="1704" y="1220" width="12" height="23"/>
+  <object id="62" name="wall" x="1372" y="1284" width="38" height="53"/>
+  <object id="63" name="wall" x="1673" y="1356" width="49" height="42"/>
+  <object id="64" name="wall" x="1671" y="1608" width="49" height="42"/>
+  <object id="65" name="wall" x="1739" y="1422" width="39" height="170"/>
+  <object id="66" name="wall" x="1670" y="1423" width="10" height="10"/>
+  <object id="67" name="wall" x="1714" y="1421" width="10" height="10"/>
+  <object id="68" name="wall" x="1716" y="1583" width="10" height="10"/>
+  <object id="69" name="wall" x="1670" y="1583" width="10" height="10"/>
+  <object id="70" name="wall" x="1217" y="1688" width="189" height="14"/>
+  <object id="71" name="wall" x="1473" y="1690" width="318" height="14"/>
+  <object id="72" name="player" x="1569" y="1502" width="32" height="32"/>
+  <object id="73" name="dirt" x="1553" y="1431" width="31" height="24"/>
+  <object id="74" name="Ddirt" x="1645" y="1449" width="7" height="6"/>
+  <object id="75" name="dirt" x="1554" y="1362" width="31" height="24"/>
+  <object id="76" name="dirt" x="1622" y="1360" width="31" height="24"/>
+  <object id="77" name="dirt" x="1622" y="1296" width="31" height="24"/>
+  <object id="78" name="dirt" x="1551" y="1299" width="31" height="24"/>
+  <object id="81" name="dirt" x="1564" y="1123" width="31" height="24"/>
+  <object id="82" name="dirt" x="1618" y="1110" width="31" height="24"/>
+  <object id="83" name="dirt" x="1685" y="1109" width="31" height="24"/>
+  <object id="84" name="dirt" x="1756" y="1096" width="31" height="24"/>
+  <object id="85" name="dirt" x="1738" y="1042" width="31" height="24"/>
+  <object id="86" name="dirt" x="1749" y="1175" width="31" height="24"/>
+  <object id="88" name="dirt" x="1681" y="1171" width="17" height="13"/>
+  <object id="90" name="dirt" x="1683" y="1306" width="17" height="13"/>
+  <object id="91" name="dirt" x="1764" y="1320" width="17" height="13"/>
+  <object id="92" name="dirt" x="1757" y="1367" width="17" height="13"/>
+  <object id="93" name="Ddirt" x="1649" y="1510" width="6" height="9"/>
+  <object id="94" name="Ddirt" x="1650" y="1569" width="4" height="11"/>
+  <object id="95" name="Ddirt" x="1700" y="1565" width="13" height="11"/>
+  <object id="96" name="Ddirt" x="1698" y="1511" width="14" height="7"/>
+  <object id="97" name="Ddirt" x="1702" y="1463" width="10" height="7"/>
+  <object id="98" name="dirt" x="1536" y="1472" width="19" height="26"/>
+  <object id="99" name="dirt" x="1553" y="1557" width="19" height="26"/>
+  <object id="100" name="dirt" x="1555" y="1633" width="19" height="26"/>
+  <object id="101" name="dirt" x="1621" y="1624" width="19" height="26"/>
+  <object id="102" name="dirt" x="1752" y="1624" width="19" height="26"/>
+  <object id="103" name="Ddirt" x="1628" y="1181" width="12" height="11"/>
+  <object id="104" name="Ddirt" x="1632" y="1241" width="9" height="11"/>
+  <object id="110" name="Ddirt" x="1565" y="1179" width="12" height="11"/>
+  <object id="111" name="Ddirt" x="1553" y="1235" width="12" height="11"/>
+  <object id="112" name="Ddirt" x="1478" y="1240" width="12" height="11"/>
+  <object id="113" name="Ddirt" x="1478" y="1173" width="12" height="11"/>
+  <object id="114" name="dirt" x="1480" y="1107" width="31" height="24"/>
+  <object id="115" name="Ddirt" x="1417" y="1170" width="12" height="11"/>
+  <object id="116" name="Ddirt" x="1412" y="1237" width="12" height="11"/>
+  <object id="117" name="Ddirt" x="1350" y="1240" width="12" height="11"/>
+  <object id="118" name="Ddirt" x="1347" y="1174" width="12" height="11"/>
+  <object id="119" name="Ddirt" x="1283" y="1176" width="12" height="11"/>
+  <object id="120" name="Ddirt" x="1285" y="1239" width="12" height="11"/>
+  <object id="121" name="Ddirt" x="1225" y="1178" width="12" height="11"/>
+  <object id="122" name="Ddirt" x="1220" y="1235" width="12" height="11"/>
+  <object id="123" name="Ddirt" x="1158" y="1178" width="12" height="11"/>
+  <object id="124" name="Ddirt" x="1157" y="1241" width="12" height="11"/>
+  <object id="125" name="Ddirt" x="1092" y="1175" width="12" height="11"/>
+  <object id="126" name="Ddirt" x="1091" y="1242" width="12" height="11"/>
+  <object id="127" name="Ddirt" x="1034" y="1177" width="12" height="11"/>
+  <object id="128" name="Ddirt" x="1029" y="1234" width="12" height="11"/>
+  <object id="129" name="Ddirt" x="965" y="1171" width="12" height="11"/>
+  <object id="130" name="Ddirt" x="964" y="1242" width="12" height="11"/>
+  <object id="131" name="Ddirt" x="902" y="1238" width="12" height="11"/>
+  <object id="132" name="Ddirt" x="901" y="1173" width="12" height="11"/>
+  <object id="133" name="Ddirt" x="838" y="1170" width="12" height="11"/>
+  <object id="134" name="Ddirt" x="835" y="1239" width="12" height="11"/>
+  <object id="135" name="Ddirt" x="836" y="731" width="12" height="11"/>
+  <object id="136" name="Ddirt" x="920" y="717" width="8" height="9"/>
+  <object id="137" name="Ddirt" x="1006" y="716" width="8" height="9"/>
+  <object id="138" name="Ddirt" x="1075" y="725" width="8" height="9"/>
+  <object id="139" name="dirt" x="1102" y="1108" width="31" height="24"/>
+  <object id="140" name="dirt" x="1040" y="1106" width="31" height="24"/>
+  <object id="141" name="dirt" x="979" y="1108" width="31" height="24"/>
+  <object id="142" name="dirt" x="912" y="1108" width="31" height="24"/>
+  <object id="143" name="dirt" x="911" y="1036" width="31" height="24"/>
+  <object id="144" name="dirt" x="911" y="980" width="31" height="24"/>
+  <object id="145" name="dirt" x="911" y="916" width="31" height="24"/>
+  <object id="146" name="dirt" x="845" y="914" width="31" height="24"/>
+  <object id="147" name="dirt" x="846" y="976" width="31" height="24"/>
+  <object id="148" name="dirt" x="848" y="1043" width="31" height="24"/>
+  <object id="149" name="dirt" x="843" y="1096" width="31" height="24"/>
+  <object id="150" name="dirt" x="779" y="1097" width="31" height="24"/>
+  <object id="151" name="dirt" x="711" y="1113" width="31" height="24"/>
+  <object id="152" name="dirt" x="779" y="971" width="31" height="24"/>
+  <object id="153" name="dirt" x="780" y="906" width="31" height="24"/>
+  <object id="154" name="dirt" x="647" y="1105" width="31" height="24"/>
+  <object id="155" name="dirt" x="579" y="1116" width="31" height="24"/>
+  <object id="156" name="dirt" x="519" y="1095" width="31" height="24"/>
+  <object id="157" name="dirt" x="528" y="1041" width="31" height="24"/>
+  <object id="158" name="dirt" x="525" y="971" width="31" height="24"/>
+  <object id="159" name="dirt" x="529" y="904" width="31" height="24"/>
+  <object id="160" name="dirt" x="845" y="843" width="31" height="24"/>
+  <object id="161" name="dirt" x="843" y="784" width="31" height="24"/>
+  <object id="162" name="dirt" x="911" y="782" width="31" height="24"/>
+  <object id="163" name="dirt" x="777" y="781" width="31" height="24"/>
+  <object id="164" name="dirt" x="525" y="722" width="31" height="24"/>
+  <object id="165" name="dirt" x="533" y="648" width="31" height="24"/>
+  <object id="166" name="dirt" x="529" y="592" width="31" height="24"/>
+  <object id="167" name="dirt" x="535" y="540" width="31" height="24"/>
+  <object id="168" name="dirt" x="596" y="657" width="31" height="24"/>
+  <object id="169" name="dirt" x="663" y="654" width="31" height="24"/>
+  <object id="170" name="dirt" x="722" y="536" width="31" height="24"/>
+  <object id="171" name="dirt" x="713" y="604" width="31" height="24"/>
+  <object id="172" name="dirt" x="790" y="543" width="31" height="24"/>
+  <object id="173" name="dirt" x="854" y="540" width="31" height="24"/>
+  <object id="174" name="dirt" x="850" y="611" width="31" height="24"/>
+  <object id="175" name="dirt" x="845" y="656" width="31" height="24"/>
+  <object id="176" name="dirt" x="1292" y="1618" width="19" height="26"/>
+  <object id="177" name="dirt" x="1301" y="1559" width="19" height="26"/>
+  <object id="178" name="dirt" x="1299" y="1486" width="19" height="26"/>
+  <object id="179" name="dirt" x="1294" y="1422" width="19" height="26"/>
+  <object id="180" name="dirt" x="1296" y="1355" width="19" height="26"/>
+  <object id="181" name="dirt" x="1291" y="1304" width="19" height="26"/>
+  <object id="182" name="dirt" x="1233" y="1308" width="19" height="26"/>
+  <object id="183" name="dirt" x="593" y="1229" width="31" height="24"/>
+  <object id="184" name="dirt" x="661" y="1227" width="31" height="24"/>
+  <object id="185" name="dirt" x="717" y="1293" width="31" height="24"/>
+  <object id="186" name="dirt" x="654" y="1308" width="31" height="24"/>
+  <object id="187" name="dirt" x="665" y="1369" width="31" height="24"/>
+  <object id="188" name="dirt" x="589" y="1360" width="31" height="24"/>
+  <object id="189" name="dirt" x="665" y="1369" width="31" height="24"/>
+  <object id="190" name="dirt" x="599" y="1419" width="31" height="24"/>
+  <object id="191" name="dirt" x="663" y="1433" width="31" height="24"/>
+  <object id="192" name="dirt" x="856" y="1382" width="31" height="24"/>
+  <object id="193" name="dirt" x="920" y="1381" width="31" height="24"/>
+  <object id="194" name="dirt" x="1045" y="1426" width="31" height="24"/>
+  <object id="195" name="dirt" x="971" y="1433" width="31" height="24"/>
+  <object id="196" name="dirt" x="906" y="1446" width="31" height="24"/>
+  <object id="197" name="dirt" x="920" y="1505" width="31" height="24"/>
+  <object id="198" name="dirt" x="835" y="1431" width="31" height="24"/>
+  <object id="199" name="dirt" x="395" y="916" width="31" height="24"/>
+  <object id="200" name="dirt" x="465" y="923" width="31" height="24"/>
+  <object id="201" name="dirt" x="400" y="1040" width="31" height="24"/>
+  <object id="202" name="dirt" x="458" y="991" width="31" height="24"/>
+  <object id="203" name="dirt" x="467" y="1053" width="31" height="24"/>
+  <object id="204" name="dirt" x="391" y="976" width="31" height="24"/>
+ </objectgroup>
+</map>

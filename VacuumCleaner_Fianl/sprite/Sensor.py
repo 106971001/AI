@@ -12,19 +12,23 @@ class SensorType(Enum):
 
 class Sensor(pygame.sprite.Sprite):
 
-    def __init__(self, robot, type=None):
+    def __init__(self, robot, position, sensor_type=None, name=None):
         super().__init__()
 
-        self.type = type
+        self.type = sensor_type
+        self.name = name
         self.direction = robot.direction
-        self.x = robot.x
-        self.y = robot.y
+        self.x = position[0]
+        self.y = position[1]
+        self.dx_position_robot = self.x - robot.x
+        self.dy_position_robot = self.y - robot.y
+
         self.value = None
 
     def update(self, robot):
         self.direction = robot.direction
-        self.x = robot.x
-        self.y = robot.y
+        self.x = robot.x + self.dx_position_robot
+        self.y = robot.y + self.dy_position_robot
 
     def get_data(self, env):
         if self.type == SensorType.Laser:
@@ -32,4 +36,5 @@ class Sensor(pygame.sprite.Sprite):
             self.value = (distance, position)
 
         if self.type == SensorType.Material:
-            env.get_sensor_material_data(self)
+            floor_type = env.get_sensor_material_data(self)
+            self.value = floor_type
