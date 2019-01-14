@@ -137,6 +137,11 @@ class Game:
                     self.quit()
                 if event.key == pg.K_h:
                     self.draw_debug = not self.draw_debug
+                if event.key == pg.K_s:
+                    if self.robot.mode == RobotMode.Manual:
+                        self.robot.mode = RobotMode.Auto
+                    elif self.robot.mode == RobotMode.Auto:
+                        self.robot.mode = RobotMode.Manual
 
     def update(self):
         # update portion of the game loop
