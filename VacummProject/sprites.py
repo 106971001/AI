@@ -1,5 +1,7 @@
 import math
 import random
+import time
+
 from enum import Enum
 
 from config import *
@@ -18,29 +20,50 @@ def collide_with_walls(sprite, group, dir):
                 sprite.pos.x = hits[0].rect.right + sprite.hit_rect.width / 2
             sprite.vel.x = 0
             sprite.hit_rect.centerx = sprite.pos.x                            # avoid rotate problem
+            if sprite.algorithm == 'SWALK':
+                if sprite.state == RobotState.SWALK_go_1_2:
+                    sprite.state = RobotState.SWALK_and_HITWALL
+                elif sprite.state == RobotState.SWALK_rot_1:
+                    sprite.state = RobotState.SWALK_rot_1_and_HITWALL
+                elif sprite.state == RobotState.SWALK_rot_2:
+                    sprite.state = RobotState.SWALK_rot_2_and_HITWALL
+                else:
+                    sprite.state = RobotState.HITWALL
 
-            if sprite.state == RobotState.SWALK_go_1_2:
-                sprite.state = RobotState.SWALK_and_HITWALL
-            else:
+                if sprite.swalk_long < 5:
+                    print('sprite.swalk_long', sprite.swalk_long)
+                    sprite.state = RobotState.SWALK_and_HITWALL
+                    sprite.swalk_hitwall_without_walk += 1
+
+            elif sprite.algorithm == 'RANDOM':
                 sprite.state = RobotState.HITWALL
 
     if dir == 'y':
         hits = pg.sprite.spritecollide(sprite, group, False, collide_hit_rect)
         if hits:
             if hits[0].rect.centery > sprite.hit_rect.centery:
-                sprite.pos.y = hits[0].rect.top - sprite.hit_rect.height / 2 #hit top of the block 
+                sprite.pos.y = hits[0].rect.top - sprite.hit_rect.height / 2  # hit top of the block
             if hits[0].rect.centery < sprite.hit_rect.centery:
                 sprite.pos.y = hits[0].rect.bottom + sprite.hit_rect.height / 2
             sprite.vel.y = 0
             sprite.hit_rect.centery = sprite.pos.y                # use centery avoid rotate problem
 
-            if sprite.state == RobotState.SWALK_go_1_2:
-                sprite.state = RobotState.SWALK_and_HITWALL
-            elif  sprite.state == RobotState.SWALK_rot_1:
-                sprite.state == RobotState.SWALK_rot_1_and_HITWALL
-            elif sprite.state == RobotState.SWALK_rot_2:
-                sprite.state == RobotState.SWALK_rot_2_and_HITWALL
-            else:
+            if sprite.algorithm == 'SWALK':
+                if sprite.state == RobotState.SWALK_go_1_2:
+                    sprite.state = RobotState.SWALK_and_HITWALL
+                elif sprite.state == RobotState.SWALK_rot_1:
+                    sprite.state = RobotState.SWALK_rot_1_and_HITWALL
+                elif sprite.state == RobotState.SWALK_rot_2:
+                    sprite.state = RobotState.SWALK_rot_2_and_HITWALL
+                else:
+                    sprite.state = RobotState.HITWALL
+
+                if sprite.swalk_long < 5:
+                    print('sprite.swalk_long', sprite.swalk_long)
+                    sprite.state = RobotState.SWALK_and_HITWALL
+                    sprite.swalk_hitwall_without_walk += 1
+
+            elif sprite.algorithm == 'RANDOM':
                 sprite.state = RobotState.HITWALL
 
 
@@ -72,7 +95,6 @@ class Robot(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.hit_rect = ROBOT_HIT_RECT                # fix rec size to avoid hit wall problem
         self.hit_rect.center = self.rect.center       # fix rec size to avoid hit wall problem
-
         self.vel = vec(0, 0)  # offset
         self.pos = vec(x, y)  # pixel
 
@@ -88,7 +110,9 @@ class Robot(pg.sprite.Sprite):
         self.swalk_direction = 'L'
         self.swalk_distance = 0
         self.swalk_hitwall = 0
+        self.swalk_hitwall_without_walk = 0
         self.swalk_order = 1
+        self.swalk_long = 0
 
         self.mode = RobotMode.Manual
         self.state = RobotState.STOP
@@ -146,9 +170,15 @@ class Robot(pg.sprite.Sprite):
             self.record.append([self.pos])
 
     def add_dirt(self, amount):
-        self.dirt += amount
+        self.dirt = 0
         if self.dirt > 100:
             self.dirt = 100
+
+    def minus_battery(self, amount, divide):
+        if(self.dirt / divide) in NUMBERS and (self.dirt / divide) > 0:
+            self.power -= amount
+            if self.power < 0:
+                self.power = 0
 
     def algorithm_random(self):
         """
@@ -171,14 +201,12 @@ class Robot(pg.sprite.Sprite):
                 """
         if self.state == RobotState.HITWALL:
             self.delta_rot = 90
-            self.swalk_distance = 15
-            if self.swalk_order == 1:
-                self.state = RobotState.SWALK_rot_1
-            else:
-                self.state = RobotState.SWALK_rot_2
+            self.state = RobotState.SWALK_rot_1
 
             print('HITWALL', self.rot)
+            print('swalk_long', self.swalk_long)
         elif self.state == RobotState.SWALK_rot_1 or self.state == RobotState.SWALK_rot_1_and_HITWALL:
+            self.swalk_long = 0
             if self.state == RobotState.SWALK_rot_1_and_HITWALL:
                 print('SWALK_rot_1_and_HITWALL')
             if self.swalk_direction == 'L':
@@ -190,59 +218,54 @@ class Robot(pg.sprite.Sprite):
 
             self.delta_rot = self.delta_rot - math.fabs((new_rot - self.rot))
             if self.delta_rot < 0:
-                if self.swalk_direction == 'L':
-                    self.rot = self.rot + self.delta_rot
-                    self.rot_speed = 0
-                else:
-                    self.rot = self.rot - self.delta_rot
-                    self.rot_speed = 0
+                self.correct_rot()
+                self.rot_speed = 0
 
             if self.delta_rot < 0 or self.delta_rot == 0:
-                if self.swalk_order == 1:
-                    self.state = RobotState.SWALK_go_1_2
-                else:
-                    self.state = RobotState.RUNNING
+                self.state = RobotState.SWALK_go_1_2
+                self.swalk_distance = 15
                 print('rot1done', self.rot)
 
         elif self.state == RobotState.SWALK_go_1_2 or self.state == RobotState.SWALK_and_HITWALL:
-
             if self.state == RobotState.SWALK_and_HITWALL:
-                self.delta_rot += 90
+                self.delta_rot = 90
                 self.vel = vec(-100, 0).rotate(-self.rot)
 
-                if self.swalk_order == 1:
-                    self.state = RobotState.SWALK_rot_2
-                else:
-                    self.state = RobotState.SWALK_rot_1
+                self.state = RobotState.SWALK_rot_2
+
+                if self.swalk_long < 5:
+                    if self.swalk_hitwall_without_walk == 4:
+                        self.swalk_hitwall_without_walk = 0
+                        self.delta_rot += 90
+
+                        if random.randint(0, 1):
+                            self.swalk_direction = 'L'
+                        else:
+                            self.swalk_direction = 'R'
+                    print('swalk_hitwall_without_walk', self.swalk_hitwall_without_walk)
+                    return
 
                 self.swalk_hitwall += 1
-                if self.swalk_hitwall == 12:
+                if self.swalk_hitwall == 7:
                     self.swalk_hitwall = 0
                     self.delta_rot += 90
-                    if random.randint(0,1):
-                        self.swalk_order = 1
-                    else:
-                        self.swalk_order = 0
-
                 else:
                     self.delta_rot = 90
                 print('SWALK_and_HITWALL', self.swalk_hitwall)
-
                 return
 
             self.vel = vec(ROBOT_SPEED, 0).rotate(-self.rot)
 
             self.swalk_distance -= 1
+            self.swalk_long += 1
             print(self.swalk_distance)
             if self.swalk_distance == 0:
                 self.swalk_hitwall = 0
-                if self.swalk_order == 1:
-                    self.state = RobotState.SWALK_rot_2
-                else:
-                    self.state = RobotState.SWALK_rot_1
+                self.state = RobotState.SWALK_rot_2
                 self.delta_rot = 90
 
         elif self.state == RobotState.SWALK_rot_2 or self.state == RobotState.SWALK_rot_2_and_HITWALL:
+            self.swalk_long = 0
             if self.state == RobotState.SWALK_rot_2_and_HITWALL:
                 print('SWALK_rot_2_and_HITWALL')
             if self.swalk_direction == 'L':
@@ -253,18 +276,12 @@ class Robot(pg.sprite.Sprite):
 
             self.delta_rot = self.delta_rot - math.fabs((new_rot - self.rot))
             if self.delta_rot < 0:
-                if self.swalk_direction == 'L':
-                    self.rot = self.rot + self.delta_rot
-                    self.rot_speed = 0
-                else:
-                    self.rot = self.rot - self.delta_rot
-                    self.rot_speed = 0
+                self.correct_rot()
+                self.rot_speed = 0
 
             if self.delta_rot < 0 or self.delta_rot == 0:
-                if self.swalk_order == 1:
-                    self.state = RobotState.RUNNING
-                else:
-                    self.state = RobotState.SWALK_go_1_2
+                self.state = RobotState.RUNNING
+                # the next will be Reverse
                 if self.swalk_direction == 'L':
                     self.swalk_direction = 'R'
                 elif self.swalk_direction == 'R':
@@ -272,20 +289,20 @@ class Robot(pg.sprite.Sprite):
                 print('rot2done', self.rot)
 
         else:
+            self.swalk_long += 1
             self.rot_speed = 0  # no rotation
             self.vel = vec(ROBOT_SPEED, 0).rotate(-self.rot)
-            s = self.rot
-            if self.rot > 290 or self.rot < 10:
-                self.rot = 0
-            elif self.rot > 80 and self.rot < 100:
-                self.rot = 90
-            elif self.rot > 170 and self.rot < 190:
-                self.rot = 180
-            elif self.rot > 260 and self.rot < 280:
-                self.rot = 270
+            self.correct_rot()
 
-
-
+    def correct_rot(self):
+        if self.rot >= 315 or self.rot < 45:
+            self.rot = 0
+        elif 45 <= self.rot < 135:
+            self.rot = 90
+        elif 135 <= self.rot < 225:
+            self.rot = 180
+        elif 225 <= self.rot < 315:
+            self.rot = 270
 
 
 class Wall(pg.sprite.Sprite):

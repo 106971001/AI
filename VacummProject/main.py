@@ -82,10 +82,13 @@ class Game:
         self.camera = ''
         self.draw_debug = ''
 
+        self.output_string =''
+        self.frame_count = 0
+        self.hit_dirt = 0
+
         # running
         self.playing = False
         self.dt = ''
-
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
@@ -117,7 +120,7 @@ class Game:
                 self.robot = Robot(self, obj_center.x, obj_center.y)  # init player
             if tile_object.name == 'wall':
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name in ['dirt','Ddirt']:
+            if tile_object.name in ['dirt','Ddirt','battery']:
                 Item(self, obj_center, tile_object.name)
 
         self.camera = Camera(self.map.width, self.map.height)
@@ -142,23 +145,56 @@ class Game:
                         self.robot.mode = RobotMode.Auto
                     elif self.robot.mode == RobotMode.Auto:
                         self.robot.mode = RobotMode.Manual
+                if event.key == pg.K_n:
+
+                    self.new()
+                    self.run()
 
     def update(self):
         # update portion of the game loop
         self.all_sprites.update()
         self.camera.update(self.robot)
+
+        # battery update
+        # 10 second & dirt 10 minus 1% if self.clock
+        TOTAL_SECONDS = self.frame_count // FPS
+        minutes = TOTAL_SECONDS // 60
+        seconds = TOTAL_SECONDS % 60
+        self.output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
+        self.frame_count +=1
+        
+        if self.robot.dirt >= 0:
+            # minus_time = int(pg.time.get_ticks()/1000)/20
+            if int(seconds/10) in NUMBERS and seconds/10 > 0:
+                if self.robot.power != 0:
+                    self.robot.power -= BATTERY_CAHRGE/1000
         # player hits items
         hits = pg.sprite.spritecollide(self.robot, self.items, False)
         for hit in hits:
-            if hit.type == 'dirt' and self.robot.dirt < 100:
+            if hit.type == 'dirt' and self.robot.dirt < 100 and self.robot.power > 15:
                 hit.kill()
+                self.hit_dirt += 1
                 self.robot.add_dirt(DIRT_COLLECT)
-            if hit.type == 'Ddirt' and self.robot.dirt < 100:
+                if self.robot.dirt != 0:   
+                    self.robot.minus_battery(BATTERY_CAHRGE,5) 
+            if hit.type == 'Ddirt' and self.robot.dirt < 100 and self.robot.power > 15:
                 hit.kill()
+                self.hit_dirt += 1
                 self.robot.add_dirt(DDIRT_COLLECT)
+                if self.robot.dirt != 0:
+                    self.robot.minus_battery(BATTERY_CAHRGE,2) 
                 keys = pg.key.get_pressed()
                 if keys[pg.K_UP] or keys[pg.K_w]:
                     self.robot.vel = vec(100, 0).rotate(-self.robot.rot)
+            if hit.type == 'battery' and self.robot.dirt == 100:
+                self.robot.dirt = 0
+            elif hit.type == 'battery' and self.robot.power < 15:
+                self.robot.dirt = 0
+                self.robot.power = 100
+            elif hit.type == 'battery' and self.robot.power < 15 and self.robot.dirt == 100:
+                self.robot.dirt = 0
+                self.robot.power = 100
+
 
     def draw(self):
         pg.display.set_caption(TITLE)
@@ -174,8 +210,10 @@ class Game:
         draw_robot_power(self.screen, 10, 10, self.robot.power / ROBOT_POWER)
         draw_text(self.screen, str(int(self.robot.power))+ "%", 30, BLACK, 120, 10)
         draw_robot_dirt(self.screen, 10, 40, self.robot.dirt)
+        draw_text(self.screen, "clean_rate:"+str(int((self.hit_dirt/TOTAL_DIRTS)*100))+ "%", 30, BLACK, 10, 70)
         draw_text(self.screen, str(int(self.robot.dirt)), 30, BLACK, 120, 40)
-        draw_text(self.screen, "Time: " + str(pg.time.get_ticks()), 30, RED, WIDTH-120, 10)
+        # draw_text(self.screen, self.output_string, 30, RED, WIDTH-120, 60
+        draw_text(self.screen, "Time: " + str(pg.time.get_ticks()/1000), 30, RED, WIDTH-120, 10)
         draw_text(self.screen, str(self.robot.pos), 30, WHITE, WIDTH - 160, 40)
         pg.display.flip()
 
