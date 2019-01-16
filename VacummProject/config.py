@@ -30,7 +30,7 @@ TOTAL_DIRTS = 600
 # Robot settings
 ROBOT_POWER = 100
 ROBOT_DIRT = 0
-ROBOT_SPEED = 200
+ROBOT_SPEED = 250
 ROBOT_ROT_SPEED = 150
 ROBOT_IMG = 'hoover-robot.png'
 ROBOT_HIT_RECT = pg.Rect(0, 0, 30, 30) # fix rec size to avoid hit wall problem
@@ -40,7 +40,6 @@ BATTERY_CAHRGE = 1
 
 # RANDOM,SWALK
 ROBOT_ALGORITHM = "SWALK"
-
 
 # Layers
 WALL_LAYER = 1
@@ -53,4 +52,9 @@ ITEMS_LAYER = 1
 # Items
 ITEM_IMAGES = {'dirt': 'dirt.png','Ddirt':'ddirt.png','battery':'charge.png'}
 ITEM_HIT_RECT = pg.Rect(0, 0, 16, 16)
+
+# Sounds
+BG_MUSIC = 'vacuum.wav'
+EFFECTS_SOUNDS = {'level_start': 'vacuum.wav',
+                  }
 
