@@ -210,9 +210,9 @@ class Robot(pg.sprite.Sprite):
 
     def algorithm_random(self):
         """
-                if hit rot random angle
-                else just go
-                """
+        if hit rot random angle
+        else just go
+        """
         if self.state == RobotState.HITWALL:
             if random.randint(0, 1):
                 self.rot_speed = random.randint(100, 1000) * 10

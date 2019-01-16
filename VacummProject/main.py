@@ -273,6 +273,9 @@ class Game:
                             self.robot.algorithm = 'SWALK'
                         else:
                             self.robot.algorithm = 'RANDOM'
+                if event.key == pg.K_c:
+                    if self.robot.mode == RobotMode.Manual:
+                        self.robot.dirt = 0
 
     def update(self):
         # update portion of the game loop
