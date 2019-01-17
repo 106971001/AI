@@ -218,6 +218,7 @@ class Robot(pg.sprite.Sprite):
                 self.rot_speed = random.randint(100, 1000) * 10
             else:
                 self.rot_speed = -random.randint(100, 1000) * 10
+            print(self.rot, '    ', math.fabs((self.rot + self.rot_speed * self.game.dt) % 360) -self.rot )
             self.state = RobotState.RUNNING
         else:
             self.rot_speed = 0  # no rotation
@@ -356,7 +357,7 @@ class Robot(pg.sprite.Sprite):
                     if self.delta_rot <= 0:
                         self.correct_rot()
                         self.rot_speed = 0
-                        self.state = RobotState.GOHOME_walk
+                        self.state = RobotState.GOHOME_walk                       
 
                 elif v_diff.x == -1.0:
                     # 180
@@ -412,18 +413,19 @@ class Robot(pg.sprite.Sprite):
                         self.correct_rot()
                         self.rot_speed = 0
                         self.state = RobotState.GOHOME_walk
+                elif v_diff.x == 0.0 and v_diff.y == 0.0:
+                    self.gohome_path = self.gohome_path[1:]
 
         if self.state == RobotState.GOHOME_walk:
             print('here')
             self.rot_speed = 0
+
             v1 = self.gohome_path[0]
-
+            now_pos = self.pos // TILE_SIZE
             print(self.gohome_path)
-            self.vel = vec(ROBOT_SPEED, 0).rotate(-self.rot)
-            now_pos = self.pos//TILE_SIZE
-
+            self.vel = vec(150, 0).rotate(-self.rot)
             print(self.pos//TILE_SIZE, ' ', v1)
-            if now_pos == v1:
+            if now_pos == v1 :
                 self.state = RobotState.GOHOME_rot
                 self.gohome_path = self.gohome_path[1:]
                 if len(self.gohome_path) == 0:
