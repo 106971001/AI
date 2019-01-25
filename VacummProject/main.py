@@ -183,6 +183,9 @@ class Game:
         self.DEMO_frame = 0
         self.last_update = 0
 
+        self.clean_record = []
+        self.round_count = 0
+
     def in_bounds(self, node):
         return 0 <= node.x < WIDTH and 0 <= node.y < HEIGHT
 
@@ -383,6 +386,32 @@ class Game:
             elif hit.type == 'battery' and self.robot.power < 15 and self.robot.dirt == 100:
                 self.robot.dirt = 0
                 self.robot.power = 100
+
+        now = pg.time.get_ticks()
+        now = now//1000
+        print(now)
+        if now == 10:
+            self.clean_record.append(str(int(self.hit_dirt / TOTAL_DIRTS) * 100))
+        if now == 15:
+            self.clean_record.append(str(int(self.hit_dirt / TOTAL_DIRTS) * 100))
+        if now == 300:
+            self.clean_record.append(str(int(self.hit_dirt / TOTAL_DIRTS) * 100))
+        if now == 420:
+            self.clean_record.append(str(int(self.hit_dirt / TOTAL_DIRTS) * 100))
+        if now == 600:
+            self.clean_record.append(str(int(self.hit_dirt / TOTAL_DIRTS) * 100))
+            if self.round_count == 1:
+                with open('record_1', 'ab') as f:
+                    f.write(str(self.clean_record))
+                    f.write('\r\n')
+
+                self.quit()
+            else:
+                self.clean_record = []
+                self.round_count += 1
+                self.new()
+                self.run()
+
 
     def draw(self):
         pg.display.set_caption(TITLE)

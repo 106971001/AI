@@ -126,7 +126,9 @@ class Robot(pg.sprite.Sprite):
         self.temp_rot = ''
 
         self.mode = RobotMode.Manual
+        self.mode = RobotMode.Auto
         self.state = RobotState.STOP
+        self.state = RobotState.RUNNING
         self.rot_speed = 0
 
     def get_keys(self):
@@ -199,12 +201,14 @@ class Robot(pg.sprite.Sprite):
 
     def add_dirt(self, amount):
         self.dirt += amount
+        self.dirt = 0
         if self.dirt > 100:
             self.dirt = 100
 
     def minus_battery(self, amount, divide):
         if(self.dirt / divide) in NUMBERS and (self.dirt / divide) > 0:
             self.power -= amount
+            self.power = 100
             if self.power < 0:
                 self.power = 0
 
@@ -218,7 +222,7 @@ class Robot(pg.sprite.Sprite):
                 self.rot_speed = random.randint(100, 1000) * 10
             else:
                 self.rot_speed = -random.randint(100, 1000) * 10
-            print(self.rot, '    ', math.fabs((self.rot + self.rot_speed * self.game.dt) % 360) -self.rot )
+            #print(self.rot, '    ', math.fabs((self.rot + self.rot_speed * self.game.dt) % 360) -self.rot )
             self.state = RobotState.RUNNING
         else:
             self.rot_speed = 0  # no rotation
